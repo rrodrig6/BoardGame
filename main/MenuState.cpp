@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "MenuButton.h"
+#include "PlayState.h"
 
 const std::string MenuState::s_menuID = "MENU";
 
@@ -59,7 +60,7 @@ bool MenuState::onExit()
 
 void MenuState::s_menuToPlay()
 {
-	std::cout << "Play button clicked\n";
+	Game::Instance()->getStateMachine()->changeState( new PlayState() );
 }
 
 void MenuState::s_exitFromMenu()

@@ -108,18 +108,6 @@ bool Game::loadMedia()
 	//Loading success flag
 	bool success = true;
 
-	if(!TextureManager::Instance()->load("sprites/tileGround.png", "tileGround", m_pRenderer))	
-	{
-		success = false;
-	}
-	if(!TextureManager::Instance()->load("sprites/tileWater.png", "tileWater", m_pRenderer))
-	{
-		success = false;
-	}
-	if(!TextureManager::Instance()->load("sprites/piece8.png", "piece8", m_pRenderer))
-	{
-		success = false;
-	}
 	return success;
 
 }
@@ -128,22 +116,7 @@ bool Game::loadMedia()
 //--loadGameObjects()-----------
 void Game::loadGameObjects()
 {
-	for( int y=0; y<10; y++ )
-	{
-		for( int x=0; x<10; x++ )
-		{
-			if( !( (y==4||y==5) && (x==2||x==3||x==6||x==7) ) )
-			{
-				board[y][x] = new Tile( new LoaderParams( x*32, y*32, 32, 32, "tileGround" ) );
-			}
-			else
-			{
-				board[y][x] = new Tile( new LoaderParams( x*32, y*32, 32, 32, "tileWater" ) );
-			}
-		}
-	}
 
-	m_gameObjects.push_back( new GamePiece( new LoaderParams( 8, 8, 16, 16, "piece8" ) ) );
 }
 
 //--update()---------------------------
@@ -152,20 +125,6 @@ void Game::update()
 
 	m_pGameStateMachine->update();
 
-/*
-	for( int y=0; y<10; y++ )
-	{
-		for( int x=0; x<10; x++ )
-		{
-			board[y][x]->update();
-		}
-	}
-
-	for( std::vector<GameObject*>::size_type i = 0 ; i != m_gameObjects.size() ; i++ )
-	{
-		m_gameObjects[i]->update();
-	}
-*/
 }
 
 //--render()------------------------------
@@ -175,21 +134,6 @@ void Game::render()
 	SDL_RenderClear( m_pRenderer );
 
 	m_pGameStateMachine->render();
-	
-/*
-	for( int y=0; y<10; y++ )
-	{
-		for( int x=0; x<10; x++ )
-		{
-			board[y][x]->draw();
-		}
-	}
-
-	for( std::vector<GameObject*>::size_type i = 0 ; i != m_gameObjects.size() ; i++ )
-	{
-		m_gameObjects[i]->draw();
-	}
-*/
 	
 	SDL_RenderPresent( m_pRenderer );
 }

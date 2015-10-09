@@ -9,11 +9,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
-#include <vector>
 #include "GameStateMachine.h"
-#include "GameObject.h"
-#include "Tile.h"
-#include "GamePiece.h"
 
 
 class Game
@@ -36,6 +32,7 @@ public:
 	void clean();
 	
 	SDL_Renderer* getRenderer();	
+	GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 
 private:
 
@@ -52,8 +49,5 @@ private:
 
 	bool m_bRunning;
 
-	Tile* board [10][10];
-
-	std::vector<GamePiece*> m_gameObjects;
 };
 #endif
