@@ -1,5 +1,11 @@
+#ifndef __InputHandler
+#define __InputHandler
+#ifdef _WIN32
+	#include <SDL.h>
+#elif __linux
+	#include <SDL2/SDL.h>
+#endif
 #include <vector>
-#include <SDL2/SDL.h>
 #include "Vector2D.h"
 
 enum mouse_buttons
@@ -59,3 +65,4 @@ private:
 	const Uint8* m_keystates;
 
 };
+#endif

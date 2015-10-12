@@ -6,8 +6,13 @@
 
 #ifndef __Game__
 #define __Game__
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#ifdef _WIN32
+	#include <SDL.h>
+	#include <SDL_image.h>
+#elif __linux
+	#include <SDL2/SDL.h>
+	#include <SDL2/SDL_image.h>
+#endif
 #include <stdio.h>
 #include "GameStateMachine.h"
 
