@@ -6,6 +6,8 @@ OBJS = main.cpp\
 	GameStateMachine.h GameStateMachine.cpp\
 	MenuState.h MenuState.cpp\
 	PlayState.h PlayState.cpp\
+	PauseState.h PauseState.cpp\
+	GameOverState.h GameOverState.cpp\
 	GameObject.h\
 	SDLGameObject.h SDLGameObject.cpp\
 	Vector2D.h\

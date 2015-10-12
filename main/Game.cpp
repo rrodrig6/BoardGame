@@ -84,6 +84,7 @@ bool Game::init( const char* title, int xpos, int ypos, int width, int height, b
 		//Initialize GameStateMachine and load menu state
 		m_pGameStateMachine = new GameStateMachine();
 		m_pGameStateMachine->changeState( new MenuState() );
+		m_pGameStateMachine->getBack()->onEnter();
 	}
 
 	

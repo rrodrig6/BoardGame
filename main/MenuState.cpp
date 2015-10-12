@@ -2,10 +2,18 @@
 #include <iostream>
 #include "Game.h"
 #include "TextureManager.h"
+#include "InputHandler.h"
 #include "MenuButton.h"
 #include "PlayState.h"
 
 const std::string MenuState::s_menuID = "MENU";
+
+
+MenuState::MenuState()
+{
+	m_bIsValid = true;
+}
+
 
 void MenuState::update()
 {
@@ -13,6 +21,8 @@ void MenuState::update()
 	{
 		m_gameObjects[i]->update();
 	}
+
+	Game::Instance()->getStateMachine()->dequeueState();
 }
 
 void MenuState::render()
@@ -53,8 +63,10 @@ bool MenuState::onExit()
 	m_gameObjects.clear();
 	TextureManager::Instance()->clearFromTextureMap( "playbutton" );
 	TextureManager::Instance()->clearFromTextureMap( "exitbutton" );
+	InputHandler::Instance()->reset();
 
 	std::cout << "exiting MenuState\n";
+	Game::Instance()->getStateMachine()->getBack()->onEnter();
 	return true;
 }
 

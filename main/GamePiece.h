@@ -10,6 +10,8 @@ public:
 	void update();
 	void clean();
 
+	Vector2D getPosition();
+
 private:
 
 	void moveToNearestCell();

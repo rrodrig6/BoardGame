@@ -49,6 +49,11 @@ void GamePiece::clean()
 	SDLGameObject::clean();
 }
 
+Vector2D GamePiece::getPosition()
+{
+	return m_position;
+}
+
 void GamePiece::moveToNearestCell()
 {
 	int xGrid = int( m_position.getX() / 32 );

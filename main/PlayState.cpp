@@ -2,11 +2,24 @@
 #include <iostream>
 #include "Game.h"
 #include "TextureManager.h"
+#include "InputHandler.h"
+#include "PauseState.h"
+#include "GameOverState.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
+PlayState::PlayState()
+{
+	m_bIsValid = true;
+}
+
 void PlayState::update()
 {
+	if( InputHandler::Instance()->isKeyDown( SDL_SCANCODE_ESCAPE ) )
+	{
+		Game::Instance()->getStateMachine()->pushState( new PauseState() );
+	}
+	
 	for( int y=0; y<10; y++ )
 	{
 		for( int x=0; x<10; x++ )
@@ -19,6 +32,13 @@ void PlayState::update()
 	{
 		m_gameObjects[i]->update();
 	}
+
+	if( m_gameObjects[0]->getPosition().getX() == 296 && m_gameObjects[0]->getPosition().getY() == 296 )
+	{
+		Game::Instance()->getStateMachine()->pushState( new GameOverState() );
+	}
+
+	Game::Instance()->getStateMachine()->dequeueState();
 }
 
 void PlayState::render()
@@ -87,7 +107,7 @@ bool PlayState::onExit()
 	TextureManager::Instance()->clearFromTextureMap("tileGround");
 	TextureManager::Instance()->clearFromTextureMap("tileWater");
 	TextureManager::Instance()->clearFromTextureMap("piece8");
-
 	std::cout << "exiting PlayState\n";
+	Game::Instance()->getStateMachine()->getBack()->onEnter();
 	return true;
 }

@@ -61,6 +61,15 @@ void InputHandler::update()
 	}
 }
 
+void InputHandler::reset()
+{
+	printf("reset()\n");
+	m_mouseButtonStates[LEFT] = false;
+	m_mouseButtonStates[MIDDLE] = false;
+	m_mouseButtonStates[RIGHT] = false;
+	SDL_FlushEvents( SDL_QUIT , SDL_USEREVENT );
+}
+
 void InputHandler::onMouseMove( SDL_Event& event )
 {
 	m_mousePosition->setX( event.motion.x );
@@ -69,6 +78,7 @@ void InputHandler::onMouseMove( SDL_Event& event )
 
 void InputHandler::onMouseButtonDown( SDL_Event& event )
 {
+	printf("Button Down\n");
 	if( event.button.button == SDL_BUTTON_LEFT )
 	{
 		m_mouseButtonStates[LEFT] = true;
@@ -85,6 +95,7 @@ void InputHandler::onMouseButtonDown( SDL_Event& event )
 
 void InputHandler::onMouseButtonUp( SDL_Event& event )
 {
+	printf("Button Up\n");
 	if( event.button.button == SDL_BUTTON_LEFT )
 	{
 		m_mouseButtonStates[LEFT] = false;

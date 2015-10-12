@@ -12,5 +12,12 @@ public:
 	virtual bool onExit() = 0;
 	
 	virtual std::string getStateID() const = 0;
+	
+	bool getIsValid() const { return m_bIsValid; }
+	void setIsValid( bool isValid ) { m_bIsValid = isValid; }
+
+protected:
+	bool m_bIsValid;
+
 };
 #endif

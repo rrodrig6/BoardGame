@@ -8,6 +8,9 @@
 class PlayState : public GameState
 {
 public:
+
+	PlayState();
+
 	virtual void update();
 	virtual void render();
 

@@ -10,6 +10,8 @@ public:
 	void pushState( GameState* pState );
 	void changeState( GameState* pState );
 	void popState();
+	void dequeueState();
+	GameState* getBack() { return m_gameStates.back(); };
 
 	void update();
 	void render();

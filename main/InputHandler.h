@@ -17,6 +17,8 @@ public:
 	void update();
 	void clean();
 
+	void reset();
+
 	bool getMouseButtonState( int buttonNumber )
 	{
 		return m_mouseButtonStates[buttonNumber];
@@ -36,6 +38,7 @@ private:
 	~InputHandler() {};
 	InputHandler( InputHandler const& ) {};
 	InputHandler& operator=( InputHandler const& ) {};
+
 
 	//Keyboard
 	void onKeyDown();
