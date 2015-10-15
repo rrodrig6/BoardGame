@@ -5,6 +5,7 @@
 class Vector2D
 {
 public:
+	Vector2D() { m_x = 0; m_y = 0; }
 	Vector2D( float x, float y ) : m_x( x ), m_y( y ) {}
 
 	Vector2D operator+( const Vector2D& v2 ) const { return Vector2D( m_x + v2.m_x, m_y + v2.m_y ); }

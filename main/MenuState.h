@@ -1,31 +1,24 @@
 #ifndef __MenuState__
 #define __MenuState__
 #include "GameState.h"
-#include <vector>
-#include "GameObject.h"
 
 class MenuState : public GameState
 {
 public:
+
+	virtual void update() = 0;
+	virtual void render() = 0;
 	
-	MenuState();
+	virtual bool onEnter() = 0;
+	virtual bool onExit() = 0;
 
-	virtual void update();
-	virtual void render();
-	
-	virtual bool onEnter();
-	virtual bool onExit();
-	
-	virtual std::string getStateID() const { return s_menuID; }
+	virtual std::string getStateID() const = 0;
 
-private:
-	
-	static const std::string s_menuID;
+protected:
 
-	std::vector<GameObject*> m_gameObjects;
+	typedef void (*Callback)();
+	virtual void setCallbacks( const std::vector<Callback>& callbacks ) = 0;
 
-	static void s_menuToPlay();
-	static void s_exitFromMenu();
-
+	std::vector<Callback> m_callbacks;
 };
 #endif

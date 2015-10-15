@@ -1,16 +1,20 @@
 #include "GameStateMachine.h"
 #include "InputHandler.h"
+#include <iostream>
 
 void GameStateMachine::pushState( GameState *pState )
 {
-	printf("pushState\n");
+	std::cout << "< GameStateMachine:pushState( " << (pState->getStateID()) << " ) >\n";
 	m_gameStates.push_back( pState );
+	std::cout << " " << m_gameStates.back()->getStateID() << "->onEnter()\n";
 	m_gameStates.back()->onEnter();
-	printf("gameStates.size = %d\n", m_gameStates.size());
+	std::cout << " gameStates.size is " << m_gameStates.size() << "\n";
+	std::cout << "< END GameStateMachine::pushState " << pState->getStateID() << " ) >\n";
 }
 
 void GameStateMachine::changeState( GameState *pState )
 {
+	std::cout << "< GameStateMachine::changeState( " << pState->getStateID() << " ) >\n";
 	if( !m_gameStates.empty() )
 	{
 		if( m_gameStates.back()->getStateID() == pState->getStateID() )
@@ -21,32 +25,37 @@ void GameStateMachine::changeState( GameState *pState )
 		{
 			if( m_gameStates[i]->getIsValid() )
 			{
+				std::cout << " m_gameStates[" << i <<"] is being invalidated\n";
 				m_gameStates[i]->setIsValid( false );
 			}
 		}
 	}
-	printf("changeState\n");
+	std::cout << " m_gameStates.push_back( " << pState->getStateID() << " )\n";
 	m_gameStates.push_back( pState );
-//	m_gameStates.back()->onEnter();
-	printf("gameStates.size = %d\n", m_gameStates.size());
+	std::cout << " m_gameStates.size is " << m_gameStates.size() << "\n";
+	std::cout << "< END GameStateMachine::changeState( " << pState->getStateID() << " ) >\n";
 }
 
 void GameStateMachine::popState()
 {
+	std::cout << "< GameStateMachine::popState() >\n";
 	if( !m_gameStates.empty() )
 	{
+		
 		if( m_gameStates.back()->onExit() )
 		{
-			printf("popState\n");
+			std::cout << " deleting " << m_gameStates.back()->getStateID() << "\n";
 			delete m_gameStates.back();
 			m_gameStates.pop_back();
-			printf("gameStates.size = %d\n", m_gameStates.size());
+			std::cout << " gameStates.size is " << m_gameStates.size() << "\n";
 		}
 	}
+	std::cout << "< END GameStateMachine::popState() >\n";
 }
 
 void GameStateMachine::dequeueState()
 {
+	
 	if( !m_gameStates.empty() )
 	{
 //		while( m_gameStates.size() > 1 )

@@ -1,8 +1,13 @@
 #include "Tile.h"
 
-Tile::Tile( const LoaderParams* pParams ) : SDLGameObject( pParams )
+Tile::Tile() : SDLGameObject()
 {
 
+}
+
+void Tile::load(const LoaderParams *pParams)
+{
+	SDLGameObject::load(pParams);
 }
 
 void Tile::draw()

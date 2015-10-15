@@ -1,10 +1,14 @@
 #OBJS specifies which files to compile as part of the project
 OBJS = main.cpp\
+	tinystr.h tinystr.cpp tinyxml.h tinyxml.cpp tinyxmlerror.cpp tinyxmlparser.cpp\
 	Game.h Game.cpp\
 	TextureManager.h TextureManager.cpp\
 	InputHandler.h InputHandler.cpp\
 	GameStateMachine.h GameStateMachine.cpp\
-	MenuState.h MenuState.cpp\
+	StateParser.h StateParser.cpp\
+	GameObjectFactory.h GameObjectFactory.cpp\
+	MenuState.h\
+	MainMenuState.h MainMenuState.cpp\
 	PlayState.h PlayState.cpp\
 	PauseState.h PauseState.cpp\
 	GameOverState.h GameOverState.cpp\

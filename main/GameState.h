@@ -1,6 +1,7 @@
 #ifndef __GameState__
 #define __GameState__
 #include <string>
+#include <vector>
 
 class GameState
 {
@@ -18,6 +19,7 @@ public:
 
 protected:
 	bool m_bIsValid;
+	std::vector<std::string> m_textureIDList;
 
 };
 #endif

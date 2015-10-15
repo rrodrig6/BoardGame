@@ -3,25 +3,16 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "InputHandler.h"
-#include "MenuState.h"
+#include "StateParser.h"
+#include "MainMenuState.h"
 #include "PlayState.h"
 #include "MenuButton.h"
 
 const std::string GameOverState::s_gameOverID = "GAMEOVER";
 
-GameOverState::GameOverState()
+GameOverState::GameOverState() : MenuState()
 {
 	m_bIsValid = true;
-}
-
-void GameOverState::s_gameOverToMain()
-{
-	Game::Instance()->getStateMachine()->changeState( new MenuState() );
-}
-
-void GameOverState::s_restartPlay()
-{
-	Game::Instance()->getStateMachine()->changeState( new PlayState() );
 }
 
 void GameOverState::update()
@@ -43,38 +34,65 @@ void GameOverState::render()
 
 bool GameOverState::onEnter()
 {
-	if( !TextureManager::Instance()->load( "sprites/button.png", "startNewButton", Game::Instance()->getRenderer() ) )	
-	{
-		return false;
-	}
-	if( !TextureManager::Instance()->load( "sprites/exit.png", "backToMenuButton", Game::Instance()->getRenderer() ) )
-	{
-		return false;
-	}
+	std::cout << "\n\n< GameOverState::onEnter() >\n";
+	StateParser stateParser;
+	stateParser.parseState( "init.xml", s_gameOverID, &m_gameObjects, &m_textureIDList );
 
-	GameObject* button1 = new MenuButton( new LoaderParams( 96, 32, 32, 32, "startNewButton" ), s_restartPlay );
-	GameObject* button2 = new MenuButton( new LoaderParams( 96, 64, 32, 32, "backToMenuButton" ), s_gameOverToMain );
+	m_callbacks.push_back(s_restartPlay);
+	m_callbacks.push_back(s_gameOverToMain);
+	setCallbacks(m_callbacks);
 
-	m_gameObjects.push_back( button1 );
-	m_gameObjects.push_back( button2 );
-	InputHandler::Instance()->reset();
-
-	std::cout << "entering GameOver state\n";
+	std::cout << "< END GameOverState::onEnter() >\n";
 	return true;
 }
 
 bool GameOverState::onExit()
 {
+	std::cout << "< MainMenuState::onExit() >\n";
 	for( int i = 0; i < m_gameObjects.size(); i++ )
 	{
+		std::cout << " cleaning m_gameObjects[" << i << "]\n";
 		m_gameObjects[i]->clean();
 	}
 	m_gameObjects.clear();
-	TextureManager::Instance()->clearFromTextureMap( "startNewButton" );
-	TextureManager::Instance()->clearFromTextureMap( "backToMenuButton" );
+
+	// Clear textures
+	for( int i = 0; i < m_textureIDList.size(); i++ )
+	{
+		std::cout << " cleaning texture " << m_textureIDList[i] << "\n";
+		TextureManager::Instance()->clearFromTextureMap( m_textureIDList[i] );
+	}
+
 	InputHandler::Instance()->reset();
 
-	std::cout << "exiting GameOverState\n";
 	Game::Instance()->getStateMachine()->getBack()->onEnter();
+	std::cout << "< END GameOverState::onExit() >\n";
 	return true;
 }
+
+void GameOverState::setCallbacks( const std::vector<Callback>& callbacks )
+{
+	std::cout << "< GameOverState::setCallbacks( callbacks ) >\n";
+	for( int i = 0; i < m_gameObjects.size(); i++ )
+	{
+		if( dynamic_cast<MenuButton*>(m_gameObjects[i]) )
+		{
+			MenuButton *pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
+			pButton->setCallback( callbacks[pButton->getCallbackID()] );
+		}
+	}
+	std::cout << "< END GameOverState::setCallbacks( callbacks ) >\n";
+}
+
+void GameOverState::s_gameOverToMain()
+{
+	std::cout << "! GameOverState::s_gameOverToMain() !\n";
+	Game::Instance()->getStateMachine()->changeState( new MainMenuState() );
+}
+
+void GameOverState::s_restartPlay()
+{
+	std::cout << "! GameOverState::s_restartPlay() !\n";
+	Game::Instance()->getStateMachine()->changeState( new PlayState() );
+}
+

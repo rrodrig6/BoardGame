@@ -1,8 +1,10 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "InputHandler.h"
-#include "MenuState.h"
+#include "MainMenuState.h"
 #include "PlayState.h"
+#include "GameObjectFactory.h"
+#include "MenuButton.h"
 
 
 Game* Game::s_pInstance = NULL;
@@ -81,61 +83,32 @@ bool Game::init( const char* title, int xpos, int ypos, int width, int height, b
 		}
 		// END Initialize SDL
 
+		// Load object types into the GameObjectFactory
+		GameObjectFactory::Instance()->registerType( "MenuButton", new MenuButtonCreator() );
+		GameObjectFactory::Instance()->registerType( "Tile" , new TileCreator() );
+		GameObjectFactory::Instance()->registerType( "GamePiece" , new GamePieceCreator() );
+
 		//Initialize GameStateMachine and load menu state
 		m_pGameStateMachine = new GameStateMachine();
-		m_pGameStateMachine->changeState( new MenuState() );
+		m_pGameStateMachine->changeState( new MainMenuState() );
 		m_pGameStateMachine->getBack()->onEnter();
 	}
-
-	
-	//Load media
-	if( !loadMedia() )
-	{
-		printf( "Failed to load media!\n" );
-		success = false;
-	}
-	
-	//Load object positions, assign textures
-	loadGameObjects();
-
 	m_bRunning = true;
 
 	return success;
 }
 
-//--loadMedia()---------------
-bool Game::loadMedia()
-{
-	//Loading success flag
-	bool success = true;
-
-	return success;
-
-}
-
-
-//--loadGameObjects()-----------
-void Game::loadGameObjects()
-{
-
-}
-
 //--update()---------------------------
 void Game::update()
 {
-
 	m_pGameStateMachine->update();
-
 }
 
 //--render()------------------------------
 void Game::render()
 {
-	
 	SDL_RenderClear( m_pRenderer );
-
 	m_pGameStateMachine->render();
-	
 	SDL_RenderPresent( m_pRenderer );
 }
 
@@ -167,15 +140,10 @@ void Game::clean()
 	SDL_Quit();
 }
 
-//--handleEvents()---------------------------------
+//--handleEvents()----------------------------------
 void Game::handleEvents()
 {
 	InputHandler::Instance()->update();
-
-	if( InputHandler::Instance()->isKeyDown( SDL_SCANCODE_RETURN ) )
-	{
-		m_pGameStateMachine->changeState( new PlayState() );
-	}
 }
 
 //--getRenderer()-----------------------------------

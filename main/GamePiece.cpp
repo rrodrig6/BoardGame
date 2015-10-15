@@ -1,9 +1,14 @@
 #include "GamePiece.h"
 #include "InputHandler.h"
 
-GamePiece::GamePiece( const LoaderParams* pParams ) : SDLGameObject( pParams )
+GamePiece::GamePiece() : SDLGameObject()
 {
 
+}
+
+void GamePiece::load( const LoaderParams *pParams)
+{
+	SDLGameObject::load(pParams);
 }
 
 void GamePiece::draw()

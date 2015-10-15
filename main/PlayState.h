@@ -23,8 +23,7 @@ private:
 	
 	static const std::string s_playID;
 
-	Tile* board [10][10];
-	std::vector<GamePiece*> m_gameObjects;
+	std::vector<GameObject*> m_gameObjects;
 
 };
 #endif

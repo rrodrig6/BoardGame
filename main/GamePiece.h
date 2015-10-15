@@ -1,11 +1,13 @@
 #include "SDLGameObject.h"
+#include "GameObjectFactory.h"
 
 class GamePiece : public SDLGameObject
 {
 public:
 
-	GamePiece( const LoaderParams* pParams );
+	GamePiece();
 
+	void load(const LoaderParams *pParams);
 	void draw();
 	void update();
 	void clean();
@@ -16,4 +18,12 @@ private:
 
 	void moveToNearestCell();
 	
+};
+
+class GamePieceCreator : public BaseCreator
+{
+	GameObject* createGameObject() const
+	{
+		return new GamePiece();
+	}
 };

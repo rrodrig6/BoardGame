@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<STATES>
+
+	<MENU>
+		<TEXTURES>
+			<texture filename="sprites/playButton.png" ID="playButton"/>
+			<texture filename="sprites/stopButton.png" ID="stopButton"/>
+		</TEXTURES>
+
+		<OBJECTS>
+			<object type="MenuButton" x="32" y="32" width="32" height="32" textureID="playButton" numFrames="0" callbackID="0"/>
+			<object type="MenuButton" x="32" y="64" width="32" height="32" textureID="stopButton" numFrames="0" callbackID="1"/>
+		</OBJECTS>
+	</MENU>
+
+	<PLAY>
+		<TEXTURES>
+			<texture filename="sprites/groundTile.png" ID="groundTile"/>
+			<texture filename="sprites/waterTile.png" ID="waterTile"/>
+			<texture filename="sprites/piece8.png" ID="piece8"/>
+		</TEXTURES>
+
+		<OBJECTS>
+			<object type="Tile" x="0" y="0" width="32" height="32" textureID="groundTile" numFrames="0" callbackID="0"/>
+			<object type="Tile" x="32" y="0" width="32" height="32" textureID="waterTile" numFrames="0" callbackID="0"/>
+			<object type="GamePiece" x="64" y="0" width="16" height="16" textureID="piece8" numFrames="0" callbackID="0"/>
+		</OBJECTS>
+	</PLAY>
+
+	<GAMEOVER>
+		<TEXTURES>
+			<texture filename="sprites/playButton.png" ID="playButton"/>
+			<texture filename="sprites/stopButton.png" ID="stopButton"/>
+		</TEXTURES>
+		
+		<OBJECTS>
+			<object type="MenuButton" x="32" y="160" width="32" height="32" textureID="playButton" numFrames="0" callbackID="0"/>
+			<object type="MenuButton" x="32" y="192" width="32" height="32" textureID="stopButton" numFrames="0" callbackID="1"/>			
+		</OBJECTS>
+	</GAMEOVER>
+
+	<PAUSE>
+		<TEXTURES>
+			<texture filename="sprites/playButton.png" ID="playButton"/>
+			<texture filename="sprites/stopButton.png" ID="stopButton"/>
+		</TEXTURES>
+	
+		<OBJECTS>
+			<object type="MenuButton" x="32" y="96" width="32" height="32" textureID="playButton" numFrames="0" callbackID="0"/>
+			<object type="MenuButton" x="32" y="128" width="32" height="32" textureID="stopButton" numFrames="0" callbackID="1"/>
+		</OBJECTS>
+	</PAUSE>
+
+</STATES>
