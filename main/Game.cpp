@@ -5,6 +5,7 @@
 #include "PlayState.h"
 #include "GameObjectFactory.h"
 #include "MenuButton.h"
+#include "Board.h"
 
 
 Game* Game::s_pInstance = NULL;
@@ -85,6 +86,7 @@ bool Game::init( const char* title, int xpos, int ypos, int width, int height, b
 
 		// Load object types into the GameObjectFactory
 		GameObjectFactory::Instance()->registerType( "MenuButton", new MenuButtonCreator() );
+		GameObjectFactory::Instance()->registerType( "Board", new BoardCreator() );
 		GameObjectFactory::Instance()->registerType( "Tile" , new TileCreator() );
 		GameObjectFactory::Instance()->registerType( "GamePiece" , new GamePieceCreator() );
 

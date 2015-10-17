@@ -3,7 +3,9 @@
 
 GamePiece::GamePiece() : SDLGameObject()
 {
-
+	m_bPreviousClickState = false;
+	m_bIsSelected = false;
+	m_iUnitValue = 1;
 }
 
 void GamePiece::load( const LoaderParams *pParams)
@@ -13,6 +15,7 @@ void GamePiece::load( const LoaderParams *pParams)
 
 void GamePiece::draw()
 {
+	m_currentFrame = m_iUnitValue;
 	SDLGameObject::draw();
 }
 
@@ -20,31 +23,27 @@ void GamePiece::update()
 {
 	if( InputHandler::Instance()->getMouseButtonState( LEFT ) )
 	{
-		m_position = Vector2D( InputHandler::Instance()->getMousePosition()->getX(), InputHandler::Instance()->getMousePosition()->getY() );
-		moveToNearestCell();	
+		if( 
+				!m_bIsSelected && !m_bPreviousClickState
+		 &&	InputHandler::Instance()->getMousePosition()->getX() >= m_position.getX() && InputHandler::Instance()->getMousePosition()->getX() < m_position.getX() + 32
+		 &&	InputHandler::Instance()->getMousePosition()->getY() >= m_position.getY() && InputHandler::Instance()->getMousePosition()->getY() < m_position.getY() + 32
+		)
+		{
+			m_bIsSelected = true;
+		}
 	}
 	else
 	{
-		
+		m_bIsSelected = false;
 	}
 
-	m_velocity = Vector2D( 0, 0 );
-	if( InputHandler::Instance()->isKeyDown( SDL_SCANCODE_RIGHT ) )
+	if( m_bIsSelected )
 	{
-		m_velocity.setX( 1 );
+		m_position = Vector2D( InputHandler::Instance()->getMousePosition()->getX(), InputHandler::Instance()->getMousePosition()->getY() );
+		moveToNearestCell();	
 	}
-	if( InputHandler::Instance()->isKeyDown( SDL_SCANCODE_LEFT ) )
-	{
-		m_velocity.setX( -1 );
-	}
-	if( InputHandler::Instance()->isKeyDown( SDL_SCANCODE_UP ) )
-	{
-		m_velocity.setY( -1 );
-	}
-	if( InputHandler::Instance()->isKeyDown( SDL_SCANCODE_DOWN ) )
-	{
-		m_velocity.setY( 1 );
-	}
+
+	m_bPreviousClickState = InputHandler::Instance()->getMouseButtonState( LEFT );
 
 	SDLGameObject::update();
 }

@@ -1,34 +1,33 @@
-#ifndef __Tile__
-#define __Tile__
+#ifndef __Board__
+#define __Board__
 #include <string>
 #include <stdio.h>
 #include "SDLGameObject.h"
 #include "GameObjectFactory.h"
+#include "Tile.h"
 
-class Tile : public SDLGameObject
+class Board : public SDLGameObject
 {
 public:
 
-	Tile();
+	Board();
 
 	void load(const LoaderParams *pParams);
 	void draw();
 	void update();
 	void clean();
-	
-	int m_TileID;
 
 private:
-
 	
+	Tile* tiles [10][10];
 
 };
 
-class TileCreator : public BaseCreator
+class BoardCreator : public BaseCreator
 {
 	GameObject* createGameObject() const
 	{
-		return new Tile();
+		return new Board();
 	}
 };
 #endif

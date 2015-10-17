@@ -15,15 +15,13 @@
 
 	<PLAY>
 		<TEXTURES>
-			<texture filename="sprites/groundTile.png" ID="groundTile"/>
-			<texture filename="sprites/waterTile.png" ID="waterTile"/>
-			<texture filename="sprites/piece8.png" ID="piece8"/>
+			<texture filename="sprites/tiles.png" ID="tiles"/>
+			<texture filename="sprites/pieces.png" ID="pieces"/>
 		</TEXTURES>
 
 		<OBJECTS>
-			<object type="Tile" x="0" y="0" width="32" height="32" textureID="groundTile" numFrames="0" callbackID="0"/>
-			<object type="Tile" x="32" y="0" width="32" height="32" textureID="waterTile" numFrames="0" callbackID="0"/>
-			<object type="GamePiece" x="64" y="0" width="16" height="16" textureID="piece8" numFrames="0" callbackID="0"/>
+			<object type="Board" x="0" y="0" width="1" height="1" textureID="tiles" numFrames="2" callbackID="0"/>
+			<object type="GamePiece" x="64" y="0" width="16" height="16" textureID="pieces" numFrames="11" callbackID="0"/>
 		</OBJECTS>
 	</PLAY>
 

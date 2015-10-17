@@ -16,6 +16,7 @@ OBJS = main.cpp\
 	SDLGameObject.h SDLGameObject.cpp\
 	Vector2D.h\
 	MenuButton.h MenuButton.cpp\
+	Board.h Board.cpp\
 	Tile.h Tile.cpp\
 	GamePiece.h GamePiece.cpp
 

@@ -2,7 +2,7 @@
 
 Tile::Tile() : SDLGameObject()
 {
-
+	m_TileID = 0;
 }
 
 void Tile::load(const LoaderParams *pParams)
@@ -12,6 +12,7 @@ void Tile::load(const LoaderParams *pParams)
 
 void Tile::draw()
 {
+	m_currentFrame = m_TileID;
 	SDLGameObject::draw();
 }
 
