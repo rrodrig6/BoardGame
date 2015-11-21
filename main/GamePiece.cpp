@@ -4,7 +4,7 @@
 GamePiece::GamePiece() : SDLGameObject()
 {
 	m_bPreviousClickState = false;
-	m_bIsSelected = false;
+	m_bSelected = false;
 	m_iUnitValue = 1;
 }
 
@@ -21,26 +21,15 @@ void GamePiece::draw()
 
 void GamePiece::update()
 {
-	if( InputHandler::Instance()->getMouseButtonState( LEFT ) )
-	{
-		if( 
-				!m_bIsSelected && !m_bPreviousClickState
-		 &&	InputHandler::Instance()->getMousePosition()->getX() >= m_position.getX() && InputHandler::Instance()->getMousePosition()->getX() < m_position.getX() + 32
-		 &&	InputHandler::Instance()->getMousePosition()->getY() >= m_position.getY() && InputHandler::Instance()->getMousePosition()->getY() < m_position.getY() + 32
-		)
-		{
-			m_bIsSelected = true;
-		}
-	}
-	else
-	{
-		m_bIsSelected = false;
-	}
-
-	if( m_bIsSelected )
+	if( m_bSelected )
 	{
 		m_position = Vector2D( InputHandler::Instance()->getMousePosition()->getX(), InputHandler::Instance()->getMousePosition()->getY() );
-		moveToNearestCell();	
+		moveToNearestCell();
+		if(  !InputHandler::Instance()->getMouseButtonState( LEFT ) 
+			&& m_bPreviousClickState )
+		{
+			m_bSelected = false;
+		}
 	}
 
 	m_bPreviousClickState = InputHandler::Instance()->getMouseButtonState( LEFT );
@@ -64,4 +53,9 @@ void GamePiece::moveToNearestCell()
 	int yGrid = int( m_position.getY() / 32 );
 
 	m_position = Vector2D( (xGrid*32)+8, (yGrid*32)+8 );
+}
+
+void GamePiece::selectGamePiece()
+{
+	m_bSelected = true;
 }

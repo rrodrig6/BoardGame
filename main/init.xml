@@ -21,7 +21,6 @@
 
 		<OBJECTS>
 			<object type="Board" x="0" y="0" width="1" height="1" textureID="tiles" numFrames="2" callbackID="0"/>
-			<object type="GamePiece" x="64" y="0" width="16" height="16" textureID="pieces" numFrames="11" callbackID="0"/>
 		</OBJECTS>
 	</PLAY>
 

@@ -6,6 +6,7 @@
 #include "StateParser.h"
 #include "PauseState.h"
 #include "GameOverState.h"
+#include "LevelParser.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
@@ -40,24 +41,31 @@ void PlayState::update()
 		Game::Instance()->getStateMachine()->pushState( new GameOverState() );
 	}
 	*/
+	pLevel->update();
 	// Check to dequeue state
 	Game::Instance()->getStateMachine()->dequeueState();
 }
 
 void PlayState::render()
 {
+/*
 	for( std::vector<GameObject*>::size_type i = 0 ; i != m_gameObjects.size() ; i++ )
 	{
 		m_gameObjects[i]->draw();
 	}
+*/
+	pLevel->render();
 }
 
 bool PlayState::onEnter()
 {
 	std::cout << "\n\n< PlayState::onEnter() >\n";
-	StateParser stateParser;
+/*	StateParser stateParser;
 	stateParser.parseState( "init.xml", s_playID, &m_gameObjects, &m_textureIDList );
-	
+*/
+	LevelParser levelParser;
+	pLevel = levelParser.parseLevel( "board.tmx" );	
+
 	std::cout << "< END PlayState::onEnter() >\n";
 	return true;
 }

@@ -15,6 +15,9 @@ public:
 	virtual void update();
 	virtual void clean();
 
+	Vector2D getPosition() { return m_position; }
+	void setPosition( Vector2D vPosition ) { m_position = vPosition; }
+
 protected:
 
 	Vector2D m_position;

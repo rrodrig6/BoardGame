@@ -35,6 +35,9 @@ bool Game::init( const char* title, int xpos, int ypos, int width, int height, b
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
 
+	m_gameWidth = width;
+	m_gameHeight = height;
+
 	//Initialization success flag
 	bool success = true;
 

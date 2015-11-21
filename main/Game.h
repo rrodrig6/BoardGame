@@ -38,6 +38,8 @@ public:
 	
 	SDL_Renderer* getRenderer();	
 	GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
+	int getGameWidth() const { return m_gameWidth; }
+	int getGameHeight() const { return m_gameHeight; }
 
 private:
 
@@ -53,6 +55,8 @@ private:
 	SDL_Renderer* m_pRenderer;
 
 	bool m_bRunning;
+	int m_gameWidth;
+	int m_gameHeight;
 
 };
 #endif

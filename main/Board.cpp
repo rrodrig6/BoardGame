@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <iostream>
 
 Board::Board() : SDLGameObject()
 {
@@ -15,6 +16,13 @@ Board::Board() : SDLGameObject()
 			{
 				tiles[y][x]->m_TileID = 1;
 			}
+			if( x == 2 && y == 2 )
+			{
+				tiles[y][x]->setGamePiece( new GamePiece() );
+				tiles[y][x]->getGamePiece()->load( new LoaderParams( tiles[y][x]->getPosition().getX(), tiles[y][x]->getPosition().getY(), 16, 16, "pieces", 11, 0, 0 ) );
+				tiles[y][x]->getGamePiece()->setUnitValue( 1 );
+				std::cout << "Unit Value is : " << tiles[y][x]->getGamePiece()->getUnitValue() <<"\n";
+			}
 		}
 	}
 }
@@ -26,6 +34,7 @@ void Board::load( const LoaderParams *pParams )
 
 void Board::draw()
 {
+	SDLGameObject::draw();
 	for( int y = 0; y < 10; y++ )
 	{
 		for( int x = 0; x < 10; x++ )
@@ -33,7 +42,6 @@ void Board::draw()
 			tiles[y][x]->draw();
 		}
 	}
-	SDLGameObject::draw();
 }
 
 void Board::update()
